@@ -13,7 +13,7 @@ obj/main.o: src/main.cpp inc/Lista.hh inc/Thash.hh
 obj/lista.o: src/lista.cpp inc/Ilista.hh
 	g++ -c ${FLAGS} -o obj/lista.o src/lista.cpp
 
-obj/thash.o: src/thash.cpp inc/Thash.hh inc/Ithash.hh inc/Tasoc.hh
+obj/thash.o: src/thash.cpp inc/Thash.hh inc/Tasoc.hh
 	g++ -c ${FLAGS} -o obj/thash.o src/thash.cpp
 
 obj/tasoc.o: src/tasoc.cpp inc/Tasoc.hh inc/Lista.hh

@@ -1,16 +1,25 @@
+#include "Lista.hh"
 
-#include "Tasoc.hh"
-#include "Ithash.hh"
-
-class TabHash: public Ithash
-{ 
-TabAsoc tab;
+class TabHash
+{
+  Lista* MainTab;
+  int s;
 public:
 
-TabHash();
+  TabHash();
 
-virtual int Hash(string key);
+  void set_size(int siz);
 
-virtual Lista& operator [](string Key);
+  int Hash(string Key);
+
+  //rwywolanie tab["klucz"]="x" jest
+  //rownoznaczne z metoda insert(key,elem)
+  Lista& operator[](string Key);
+
+  //zwraca numer slowa szukanego sear_word
+  //ktore znajduje sie na liscie o kluczu Key
+  int search(string Key, string sear_word);
+
+  ~TabHash();
 
 };

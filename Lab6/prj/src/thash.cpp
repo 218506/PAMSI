@@ -1,26 +1,26 @@
 #include <cstdio>
 #include <unistd.h>
-#include <string.h>
+#include <string>
 #include <ctime>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 
-#define ROZMIAR_TABLICY_HASHUJACEJ 2048383//- do zmiany, zalezy od ilosci uzytych liter
 using namespace std;
 
 #include "Thash.hh"
 
-TabHash:: TabHash()
+TabHash::TabHash()
 {
-  tab.set_size(ROZMIAR_TABLICY_HASHUJACEJ);
+  s=1;
+  MainTab=new Lista[1];
 }
 
-
-//wymagania:
-//1. Latwo policzyc
-//2. Rowny rozklad
-//3. Malo kolizji 
+void TabHash::set_size(int siz)
+{
+  s=siz;
+  MainTab=new Lista[siz];
+}
 
 int TabHash:: Hash(string key)
 {
@@ -34,5 +34,43 @@ int TabHash:: Hash(string key)
 
 Lista& TabHash:: operator [](string Key)
 {
-  return tab[Hash(Key)];
+  if(Hash(Key) < s)
+    return MainTab[Hash(Key)];
+  else
+    {
+      cerr << "Nieprawidlowe indeksowanie tablicy."<<endl;
+      return MainTab[0];
+    }
+
+}
+
+int TabHash:: search(string Key, string sear_word)
+{
+  Lista tmp=MainTab[Hash(Key)]; //znajduje element za pomoca funk. hashujacej
+  int i=0;
+  while(!tmp.empty())
+    {
+      tmp.pop_front();
+      if(tmp.get()==sear_word)
+	break;
+      i++;
+    }
+  if(i==0)
+    cerr << "Nie znaleziono slowa." << endl;
+  return i;
+}
+
+TabHash::~TabHash()
+{
+  if(this->s!=0)
+    {
+      for(int i=0; i < s;i++)  //przejezdzam po kazdym elemencie MainTaba
+	{
+	  while(!MainTab[i].empty()) //dopoki nie empty- popuje elementy
+	    {
+	      MainTab[i].pop_front();
+	    }
+	}
+      MainTab=NULL;
+    }
 }

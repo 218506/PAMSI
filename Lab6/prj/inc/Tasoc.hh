@@ -1,17 +1,15 @@
-#include "Lista.hh"
+#include "Thash.hh"
 
 class TabAsoc
-{
-  Lista* MainTab;
-  int s;
+{ 
+  TabHash tab;
 public:
-
+  
   TabAsoc();
 
-  void set_size(int siz);
-
-  Lista& operator[](int in); 
-
+  int Hash(string key);
+  
+  Lista& operator [](string Key);
+  
   ~TabAsoc();
-
 };

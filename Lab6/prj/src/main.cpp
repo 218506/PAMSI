@@ -8,15 +8,13 @@
 
 using namespace std;
 
-#include "Thash.hh"
+#include "Tasoc.hh"
 
 int main()
 {
-  TabHash a;
+  TabAsoc a;
+  
+  a["kakaka"]="x";
+  a["kakaka"]="c";
 
-  a["azaaa"]="x";
-  a["azaaa"]="b";
-  a["azaaa"]="c";
-
-  cerr << a["azaaa"].get() << endl;
 }
