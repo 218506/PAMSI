@@ -47,9 +47,15 @@ public:
 
   /*!
    *\brief Metoda get dla obiektow klasy Lista.
-   * Zwraca wartosc z podanego miejsca na liscie, nie usuwajac elementu. 
+   * Zwraca wartosc z przodu listy, nie usuwajac elementu. 
    */
   virtual string get();
+
+ /*!
+   *\brief Metoda get dla obiektow klasy Lista.
+   * Zwraca wartosc z tylu listy, nie usuwajac elementu. 
+   */
+  virtual string get_back();
 
   /*!
    *\brief Metoda size dla obiektow klasy Lista.

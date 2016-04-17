@@ -22,7 +22,7 @@ void TabHash::set_size(int siz)
   MainTab=new Lista[siz];
 }
 
-int TabHash:: Hash(string key)
+int TabHash:: Hash(string key) //sumuje ascii*waga (waga =1,2,3...)
 {
   int ha=0;
   for(unsigned int i=0; i< key.size();i++)
@@ -50,27 +50,38 @@ int TabHash:: search(string Key, string sear_word)
   int i=0;
   while(!tmp.empty())
     {
-      tmp.pop_front();
-      if(tmp.get()==sear_word)
-	break;
-      i++;
+      if(tmp.get_back()==sear_word)
+	{
+	  return i;
+	}
+      else
+	{
+	  i++;
+	}
+      tmp.pop_back();
     }
-  if(i==0)
-    cerr << "Nie znaleziono slowa." << endl;
-  return i;
+  cerr << "Nie znaleziono slowa." << endl;
+  return 0;
 }
 
 TabHash::~TabHash()
 {
-  if(this->s!=0)
+  /*
+  cerr <<"Dest thash" << endl;
+  if(this->s!=1)
     {
       for(int i=0; i < s;i++)  //przejezdzam po kazdym elemencie MainTaba
 	{
+	  
+	  cerr << "1i=  " << i << endl;
 	  while(!MainTab[i].empty()) //dopoki nie empty- popuje elementy
 	    {
+	      cerr << "2i=  " << i << endl;
 	      MainTab[i].pop_front();
 	    }
-	}
+	} 
       MainTab=NULL;
-    }
+      cerr <<"P O Dest thash" << endl;
+    } 
+  */
 }

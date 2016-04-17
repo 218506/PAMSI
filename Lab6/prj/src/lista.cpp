@@ -77,6 +77,19 @@ string Lista:: get()
   }
 
 /*!
+ *\brief Metoda get dla obiektow klasy Lista
+ * Metoda sprawdza co znajduje sie w miejscu pola wartosc.
+ * \return Zwraca wartosc elementu, ktory znajduje sie na tyle listy.
+ */
+string Lista:: get_back()
+  {
+    if(!empty())
+      return tyl->wartosc;
+    else
+      return "0";
+  }
+
+/*!
  *\brief Metoda size dla obiektow klasy Lista
  * Metoda tworzy zmienna pomocnicza bufo, ktora wskazuje na to samo
  * miejsce co poczatek listy a nastepnie poprzez wskaznik na poprzedni

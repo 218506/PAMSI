@@ -6,14 +6,14 @@
 #include <iomanip>
 #include <iostream>
 
-#define ROZMIAR_TABLICY_ASOC 2048383//- do zmiany, zalezy od ilosci uzytych liter
+
 using namespace std;
 
 #include "Tasoc.hh"
 
-TabAsoc:: TabAsoc()
+TabAsoc:: TabAsoc(int size)
 {
-  tab.set_size(ROZMIAR_TABLICY_ASOC);
+  tab.set_size(size);
 }
 
 Lista& TabAsoc::operator[](string Key)
@@ -21,6 +21,10 @@ Lista& TabAsoc::operator[](string Key)
   return tab[Key];
 }
 
+int TabAsoc:: search(string Key, string sear_word)
+{
+  return tab.search(Key,sear_word);
+}
 
 TabAsoc::~TabAsoc()
 {

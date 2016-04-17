@@ -20,8 +20,11 @@ public:
   //Usuwanie jednego elementu z tylu listy,zwraca jeg wartosc.
   virtual string pop_back()=0;
   
-  //Zwraca wartosc z podanego miejsca na liscie, nie usuwajac elementu.
+  //Zwraca wartosc z przodu listy, nie usuwajac elementu.
   virtual string get()=0;
+
+  //Zwraca wartosc z tylu listy, nie usuwajac elementu.
+  virtual string get_back()=0;
   
   //Zwraca ilosc elementow na liscie.
   virtual int size()=0;

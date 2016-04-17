@@ -4,6 +4,7 @@ class TabHash
 {
   Lista* MainTab;
   int s;
+  friend class TabAsoc;
 public:
 
   TabHash();
@@ -21,5 +22,4 @@ public:
   int search(string Key, string sear_word);
 
   ~TabHash();
-
 };
