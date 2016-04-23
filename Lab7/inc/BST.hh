@@ -1,16 +1,23 @@
 #include "tablica.hh"
 #include "IBST.hh"
 
+class Kaf
+{
+  Kaf* ls=NULL;
+  Kaf* ps=NULL;
+  Kaf* parent=NULL;
+  int wartosc=0;
+  friend class BST;
+};
+
+
 class BST: IBST
 {
-  Tablica tree; 
-  int end; //indeks konca drzewa w tablicy
+  Kaf* tree;
 public:
 
   BST();
 
-  BST(int size);
-  
   virtual void insert(int v1);
   
   virtual void balance();

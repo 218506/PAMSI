@@ -64,17 +64,22 @@ void Tablica:: dopiszx2(int in, int x)
 	  Tab1[i]=Tab[i];
 	}
       
-      Tab= new int[n*2];  //tworze nowa powiekszona o 1
+      Tab= new int[n*2];  //tworze nowa powiekszona x2
       
       for(int i=0; i<n;i++)
 	{
 	  Tab[i]=Tab1[i];
 	}
       
-      Tab[n]=x;
       delete[] Tab1;
       Tab1=NULL;
       n=n*2;
+
+      if(in>=n) //jezeli indeks nadal przekracza rozmiar - rekurencja
+      	dopiszx2(in,x);
+      else //jezel nie przekracza - wpisuje na wybrany indeks wyraz
+	Tab[in]=x; 
+
     }
   else
     {

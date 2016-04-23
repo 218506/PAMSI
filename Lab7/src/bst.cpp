@@ -12,43 +12,54 @@ using namespace std;
 
 BST::BST()
 {
-  this->tree[0]=0;
-  this->end=0;
-}
-
-BST::BST(int size)
-{
-  int i;
-  for(i=0; i < size; i++)
-    this->tree.dopiszx2(i,i);
-  this->tree.dotnij(i);
-  this->end=i;  
+  tree=NULL;
 }
 
 
 void BST:: insert(int v1)
-{  
-  if(end==0) //dla zapelniania pierwszego elementu
+{
+  Kaf* nowa=new Kaf;
+  nowa->wartosc=v1;
+  
+  if(tree==NULL) //jezeli drzewo puste - root
+    tree=nowa;
+  else //jezeli juz cos jest na drzewie
     {
-      this->tree.dopisz(0,v1);
-      end++;
+      Kaf* tmp = tree; //zeby nie zgubic wsk na pierwszy element
+      while(1)
+	{
+	  if(v1 < tree->wartosc) //1. jezeli v1 mniejsza - idzie w lewo
+	    {
+	      if(tree->ls!=NULL)
+		tree=tree->ls;
+	      else
+		{
+		  tree->ls=nowa;
+		  nowa->parent=tree;
+		  break;
+		}
+	    }
+	  else if(tree->wartosc==v1) //2. jezeli v1 rowna - koniec
+	    break;
+	  else  //3. jezel v1 wieksza - idzie w prawo
+	    {
+	      if(tree->ps!=NULL)
+		tree=tree->ps;
+	      else
+		{
+		  tree->ps=nowa;
+		  nowa->parent=tree;
+		  break;
+		}	    
+	    }
+	}
+      tree=tmp;
     }
-  else
-    {
-      this->tree.dopisz(++end,v1);
-    }
-  tree.dotnij(end);
-
-  for(int i=0;i<end;i++)
-    cerr << tree[i]<< "  ";
-  cerr << endl; 
-
 }
 
-  
 void BST:: balance()
 {
-
+ 
 }
   
 void BST:: remove(int index)
