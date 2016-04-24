@@ -19,6 +19,8 @@ public:
   BST();
 
   virtual void insert(int v1);
+
+  Kaf* rotate_right ();
   
   virtual void balance();
   

@@ -67,14 +67,10 @@ void BST:: insert(int v1)
 	}
       tree=tmp;
     }
-
 }
 
-void BST:: balance()
+Kaf* BST::rotate_right()
 {
-  //Algorytm DSW
-  //1. rotate right
-
   if(tree->ls!=NULL) //Jezeli A ma prawego syna B
     {
       tree=tree->ls; //przesuwam wskaznik tree na B
@@ -83,12 +79,19 @@ void BST:: balance()
 	  tree->parent->ls=tree->ps; //Lewy syn A wskazuje na prawego B
 	  tree->parent->ls->parent=tree->parent; //Lewy syn A wskazuje na rodzica A czyli B 
 	}
-
+      else
+	{
+	  tree->parent->ls=NULL; //Lewy syn A wskazuje na NULL
+	}
+      
       tree->ps=tree->parent; //A staje sie prawym synem B
-     
+      
       if(tree->ps->parent!=NULL) //Jezeli A nie byl rootem
 	{
-	  tree->parent->parent->ps=tree; 
+	  if(tree->parent->parent->ls==tree->parent)
+	    tree->parent->parent->ls=tree;
+	  else
+	    tree->parent->parent->ps=tree;
 	  tree->parent=tree->parent->parent;
 	  tree->ps->parent=tree;
 	}
@@ -96,8 +99,38 @@ void BST:: balance()
 	{
 	  tree->parent->parent=tree; // B staje sie rodzicem A
 	  tree->parent=NULL; //B staje sie korzeniem
-	} 
+	}       
     }
+  return tree;
+}
+
+void BST:: balance()
+{
+  //Algorytm DSW - zlozonosc obliczeniowa O(n)
+  if(tree!=NULL)
+    {
+      //1. rotate right
+      /* ROBIENIE LISTY Z DRZEWA */
+      while(tree->ls!=NULL)
+	{
+	  rotate_right();
+	}
+      
+      Kaf* tmp=rotate_right(); //zapamietuje wartosc nowego korzenia - minimmum  ze zbioru!!!!
+      
+      while(tree->ps!=NULL)
+	{
+	  while(tree->ls!=NULL)
+	    {
+	      rotate_right();
+	    }
+	   tree=tree->ps;
+	}
+      tree=tmp;
+    }
+  else
+    cerr << "Nie ma czego balansowac." << endl;
+  //2. rotate left
 }
   
 void BST:: remove(int index)
