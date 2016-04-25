@@ -69,6 +69,14 @@ void BST:: insert(int v1)
     }
 }
 
+Kaf* BST::rotate_left()
+{
+
+
+
+}
+
+
 Kaf* BST::rotate_right()
 {
   if(tree->ls!=NULL) //Jezeli A ma prawego syna B
@@ -127,10 +135,12 @@ void BST:: balance()
 	   tree=tree->ps;
 	}
       tree=tmp;
+      //2. rotate left
+      
+
     }
   else
     cerr << "Nie ma czego balansowac." << endl;
-  //2. rotate left
 }
   
 void BST:: remove(int index)

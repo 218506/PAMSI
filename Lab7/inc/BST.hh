@@ -20,7 +20,9 @@ public:
 
   virtual void insert(int v1);
 
-  Kaf* rotate_right ();
+  Kaf* rotate_left();
+
+  Kaf* rotate_right();
   
   virtual void balance();
   
