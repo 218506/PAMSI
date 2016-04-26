@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string>
 #include <ctime>
+#include <math.h>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -13,6 +14,7 @@ using namespace std;
 BST::BST()
 {
   tree=NULL;
+  W=0;
 }
 
 
@@ -22,7 +24,10 @@ void BST:: insert(int v1)
   nowa->wartosc=v1;
   
   if(tree==NULL) //jezeli drzewo puste - root
-    tree=nowa;
+    {
+      tree=nowa;
+      this -> W++;
+    }
   else //jezeli juz cos jest na drzewie
     {
       Kaf* tmp = tree; //zeby nie zgubic wsk na pierwszy element
@@ -38,6 +43,7 @@ void BST:: insert(int v1)
 		  cerr << "NA LEWO ";
 		  tree->ls=nowa;
 		  nowa->parent=tree;
+		  this -> W++;
 		  break;
 		}
 	    }
@@ -55,6 +61,7 @@ void BST:: insert(int v1)
 		  cerr << "NA PRAWO ";
 		  tree->ps=nowa;
 		  nowa->parent=tree;
+		  this -> W++;
 		  break;
 		}	    
 	    }
@@ -67,13 +74,42 @@ void BST:: insert(int v1)
 	}
       tree=tmp;
     }
+  cerr << "Ilosc wezlow: " << W;
 }
 
 Kaf* BST::rotate_left()
 {
-
-
-
+  if(tree->ps!=NULL) //Jezeli A ma lewego syna B
+    {
+      tree=tree->ps; //przesuwam wskaznik tree na B
+      if(tree->ls!=NULL) //jezeli B ma lewego syna
+	{
+	  tree->parent->ps=tree->ls; //Lewy syn A wskazuje na prawego B
+	  tree->parent->ps->parent=tree->parent; //Lewy syn A wskazuje na rodzica A czyli B 
+	}
+      else
+	{
+	  tree->parent->ps=NULL; //Lewy syn A wskazuje na NULL
+	}
+      
+      tree->ls=tree->parent; //A staje sie prawym synem B
+      
+      if(tree->ls->parent!=NULL) //Jezeli A nie byl rootem
+	{
+	  if(tree->parent->parent->ps==tree->parent)
+	    tree->parent->parent->ps=tree;
+	  else
+	    tree->parent->parent->ls=tree;
+	  tree->parent=tree->parent->parent;
+	  tree->ls->parent=tree;
+	}
+      else //Jezeli a byl rootem
+	{
+	  tree->parent->parent=tree; // B staje sie rodzicem A
+	  tree->parent=NULL; //B staje sie korzeniem
+	}       
+    }
+  return tree; 
 }
 
 
@@ -135,9 +171,21 @@ void BST:: balance()
 	   tree=tree->ps;
 	}
       tree=tmp;
-      //2. rotate left
-      
 
+      /*Obliczanie liczby potrzebnej do algorytmu DSW*/
+      
+      int m=pow(2,floor(log2(W+1)))-1;
+      cerr << m <<"  =m" << endl;
+      //2. rotate left 
+      
+      tmp=rotate_left();
+      while(tree->ps!=NULL)
+	{
+      	  tree=tree->ps;
+	  rotate_left();
+	}
+      tree=tmp;
+      tree=rotate_left();
     }
   else
     cerr << "Nie ma czego balansowac." << endl;

@@ -48,12 +48,22 @@ int main()
   test.insert(2); 
   test.insert(1); 
   */
+
+
+  test.insert(1);
+  test.insert(2);
+  test.insert(3);
+  test.insert(4);
+  test.insert(5); 
+  test.insert(6);
+  test.insert(7); 
+  
+
   cerr << "TEST ROTACJ: " << endl;
   
   test.balance();
-
-  test.insert(20);
-
+ 
+  test.insert(7);
 
   return 0;
 }

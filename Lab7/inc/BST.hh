@@ -14,6 +14,7 @@ class Kaf
 class BST: IBST
 {
   Kaf* tree;
+  int W;
 public:
 
   BST();
