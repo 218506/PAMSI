@@ -1,7 +1,7 @@
 FLAGS=-g -Iinc -pedantic -Wall -std=c++0x
 
-Lab7: obj obj/main.o obj/tablica.o obj/bst.o
-	g++ -pedantic -Wall -std=c++0x -o Lab7 obj/main.o obj/tablica.o obj/bst.o
+Lab7: obj obj/main.o obj/tablica.o obj/bst.o  obj/test_bst.o
+	g++ -pedantic -Wall -std=c++0x -o Lab7 obj/main.o obj/tablica.o obj/bst.o obj/test_bst.o
 
 obj:
 	mkdir obj
@@ -14,6 +14,9 @@ obj/tablica.o: src/tablica.cpp inc/tablica.hh inc/Itablica.hh
 
 obj/bst.o: src/bst.cpp inc/BST.hh inc/IBST.hh
 	g++ -c ${FLAGS} -o obj/bst.o src/bst.cpp
+
+obj/test_bst.o: src/test_bst.cpp inc/BST.hh inc/test_bst.hh
+	g++ -c ${FLAGS} -o obj/test_bst.o src/test_bst.cpp
 
 make clear:
 	rm -r obj/*

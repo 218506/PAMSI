@@ -33,14 +33,12 @@ void BST:: insert(int v1)
       Kaf* tmp = tree; //zeby nie zgubic wsk na pierwszy element
       while(1)
 	{
-	  cerr << "STEP:  " <<tree->wartosc << endl;
 	  if(v1 < tree->wartosc) //1. jezeli v1 mniejsza - idzie w lewo
 	    {
 	      if(tree->ls!=NULL)
 		tree=tree->ls;
 	      else
 		{
-		  cerr << "NA LEWO ";
 		  tree->ls=nowa;
 		  nowa->parent=tree;
 		  this -> W++;
@@ -58,7 +56,6 @@ void BST:: insert(int v1)
 		tree=tree->ps;
 	      else
 		{
-		  cerr << "NA PRAWO ";
 		  tree->ps=nowa;
 		  nowa->parent=tree;
 		  this -> W++;
@@ -66,15 +63,8 @@ void BST:: insert(int v1)
 		}	    
 	    }
 	}
-
-      if(tree->wartosc!=v1) //2. jezeli v1 rowna - koniec
-	{
-	  cerr << "WSTAWIAM:  " << nowa->wartosc << endl;
-	  cerr << "RODZIC: " << nowa->parent->wartosc << endl;
-	}
       tree=tmp;
     }
-  cerr << "Ilosc wezlow: " << W;
 }
 
 Kaf* BST::rotate_left()
@@ -160,7 +150,7 @@ void BST:: balance()
 	  rotate_right();
 	}
       
-      Kaf* tmp=rotate_right(); //zapamietuje wartosc nowego korzenia - minimmum  ze zbioru!!!!
+      Kaf* tmp=rotate_right(); //zapamietuje wartosc nowego korzenia - minimmum  ze zbioru
       
       while(tree->ps!=NULL)
 	{
@@ -174,18 +164,37 @@ void BST:: balance()
 
       /*Obliczanie liczby potrzebnej do algorytmu DSW*/
       
-      int m=pow(2,floor(log2(W+1)))-1;
-      cerr << m <<"  =m" << endl;
+      // int m=pow(2,floor(log2(W+1)))-1;
       //2. rotate left 
       
       tmp=rotate_left();
-      while(tree->ps!=NULL)
+      while(tree->ps!=NULL) //przejście po raz pierwszy - pierwsze zgiecia
 	{
       	  tree=tree->ps;
 	  rotate_left();
 	}
+      
+      int licznik=0;
       tree=tmp;
-      tree=rotate_left();
+      rotate_left();
+      while(1) // po raz drugi - zginanie drzewa w co drugim punkcie
+	{
+	  if(tree->ps!=NULL) 
+	    {
+	      if(licznik==0)
+		tmp=rotate_left(); //zapamietanie korzenia
+	      else
+		rotate_left();
+	      if(tree->ps->ps!=NULL)
+		tree=tree->ps->ps;
+	      else
+		break;
+	      licznik++;
+	    }
+	  else
+	    break;
+	}
+      tree=tmp;
     }
   else
     cerr << "Nie ma czego balansowac." << endl;
@@ -198,7 +207,44 @@ void BST:: remove(int index)
   
 int BST:: search(int v1) //implementacja binary search
 {
-  return -1;
+  if(tree==NULL) //jezeli drzewo puste - root
+    {
+      cerr << "Na drzewie nie ma elementow" << endl;
+    }
+  else //jezeli juz cos jest na drzewie
+    {
+      Kaf* tmp = tree; //zeby nie zgubic wsk na pierwszy element
+      while(1)
+	{
+	  if(v1 < tree->wartosc) //1. jezeli v1 mniejsza - idzie w lewo
+	    {
+	      if(tree->ls!=NULL)
+		tree=tree->ls;
+	      else
+		{
+		  cerr << "Nie znaleziono elementu" << endl;
+		  return -1;
+		}
+	    }
+	  else if(tree->wartosc==v1) //2. jezeli v1 rowna - koniec
+	    {
+	      cerr << "Znalezion element" << endl;
+	      break;
+	    }
+	  else  //3. jezel v1 wieksza - idzie w prawo
+	    {
+	      if(tree->ps!=NULL)
+		tree=tree->ps;
+	      else
+		{
+		  cerr <<"Nie znaleziomo elementu" << endl;
+		  return -1;
+		}	    
+	    }
+	}
+      tree=tmp;
+    }
+  return 1;
 }
 
 

@@ -1,5 +1,5 @@
 class Irunnable
 {
 public:
-  virtual bool run(int dystans,int laps)=0; 
+  virtual bool run(int Argc,char* Argv[])=0; 
 };
