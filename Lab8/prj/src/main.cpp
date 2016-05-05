@@ -14,7 +14,8 @@ using namespace std;
 
 int main()
 {
-
+  Graph test(99,100);
+  test.addEdge(2,1,0);
 
   return 1;
 }

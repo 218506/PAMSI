@@ -6,9 +6,10 @@ class Graph: public Igraph
   int V;
   Lista* AdList;
 public:
+  Graph();
   Graph(int edges,int vertices);
   virtual void addVertex(int x);
-  virtual void addEdge(int x,int y, int weight); 
+  virtual void addEdge(int A,int B, int weight); 
   virtual void removeVertex(int x);
   virtual void removeEdge(int x,int y);
   virtual Tablica getNeighbours(int x);
