@@ -8,14 +8,14 @@
 
 using namespace std;
 
-#include "Lista.hh"
-#include "tablica.hh"
-#include "Graph.hh"
+#include "test_graph.hh"
 
 int main()
 {
-  Graph test(99,100);
-  test.addEdge(2,1,0);
+  test_graph ttt;
+
+  ttt.prepare(10,3);  //(Ver,RandEdg)
+  
 
   return 1;
 }
