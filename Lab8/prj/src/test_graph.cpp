@@ -79,7 +79,7 @@ void test_graph::wyswietl_wynik()
 
 bool test_graph:: prepare(int Ver, int Edg)
 {
-
+  
   random_device rd;
   mt19937 rng(rd());
   uniform_int_distribution<int> uni(0,Ver-1);
@@ -109,7 +109,30 @@ bool test_graph:: prepare(int Ver, int Edg)
 	}
     }
 
-  Test.removeEdge(1,1);
+
+  /*
+  //Graf testowy
+  Test.addEdge(3,0,1);
+  Test.addEdge(0,1,1);
+  Test.addEdge(1,0,1);
+  Test.addEdge(1,4,1);
+  Test.addEdge(4,1,1);
+  Test.addEdge(4,6,1);
+  Test.addEdge(6,4,1);
+  Test.addEdge(6,0,1);
+  Test.addEdge(0,6,1);
+  Test.addEdge(0,3,1);
+  Test.addEdge(1,5,1);
+  Test.addEdge(5,1,1);
+  Test.addEdge(3,5,1);
+  Test.addEdge(5,3,1);
+  Test.addEdge(5,2,1);
+  Test.addEdge(2,5,1);
+  Test.addEdge(7,2,1);
+  Test.addEdge(2,7,1);
+  */
+
+  Test.DFS(0);
 
   return true;
 }

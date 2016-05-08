@@ -9,6 +9,7 @@
 using namespace std;
 
 #include "Lista.hh"
+#include "Stos.hh"
 #include "Graph.hh"
 
 Graph::Graph()
@@ -56,7 +57,7 @@ bool Graph::isEmpty(int ind)
 void Graph::addEdge(int A,int B, int weight)
 {
  
-  if(A > V-1 && B > V-1) //zle indeksowanie tablicy list
+  if(A > V-1 || B > V-1) //zle indeksowanie tablicy list
     {
       cerr << "Wierzcholek o numerze " << A << " nie istnieje." <<endl;
       return;
@@ -89,6 +90,47 @@ void Graph::removeEdge(int x,int y)
 	cerr  << AdList[i].pop_front() << ", "; 
       cerr << endl;
     }
+}
+
+
+
+void Graph::DFS(int start)
+{
+
+  int *odwiedzone= new int[V];
+  for(int i=0;i<V;i++)
+    odwiedzone[i]=0;
+
+  Stos stack;
+  stack.push(to_string(start)); //pushuje do stosu poczatkowy wezel
+  odwiedzone[start]=1; //koloruje go
+
+  while(!stack.empty())
+    {
+      start = stoi(stack.pop()); //sciagam ze stosu element
+      cerr << start << " ";
+
+
+      Lista tmp= AdList[start];
+      while(!tmp.empty()) //przeszukuje wszystkich sasiadow starta
+      {     
+	string sasiad=tmp.pop_front(); //sciagam sasiada
+	if (odwiedzone[stoi(sasiad)]!=1) //sprawdzam czy odwiedzony
+	  {
+	    odwiedzone[stoi(sasiad)] = 1; //jezeli nie, koloruje
+	    stack.push(sasiad); //i pushuje na stos
+	  }
+      }
+    }
+  cerr << endl;
+  delete odwiedzone;
+}
+
+void Graph::BFS()
+{
+
+
+
 }
 
 
