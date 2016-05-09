@@ -12,7 +12,7 @@ public:
   virtual void addVertex(int x);
   virtual void addEdge(int A,int B, int weight); 
   virtual void removeVertex(int x);
-  virtual void removeEdge(int x,int y);
+  virtual void displayEdges();
   void DFS(int start);
-  void BFS(); 
+  void BFS(int start); 
 };

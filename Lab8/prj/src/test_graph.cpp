@@ -85,7 +85,7 @@ bool test_graph:: prepare(int Ver, int Edg)
   uniform_int_distribution<int> uni(0,Ver-1);
 
   this->Test=Graph(Edg,Ver);
-
+  /*
   //1.Tworzenie szkieletu (gwarantuje graf spojny)
 
   for(int i=0; i< Ver-1;i++)
@@ -108,7 +108,7 @@ bool test_graph:: prepare(int Ver, int Edg)
 	  Test.addEdge(b,a,1);
 	}
     }
-
+  */
 
   /*
   //Graf testowy
@@ -131,8 +131,21 @@ bool test_graph:: prepare(int Ver, int Edg)
   Test.addEdge(7,2,1);
   Test.addEdge(2,7,1);
   */
+  
+  Test.addEdge(0,2,1);
+  Test.addEdge(0,1,1);
+  Test.addEdge(2,5,1);
+  Test.addEdge(2,3,1);
+  Test.addEdge(3,0,1);
+  Test.addEdge(1,4,1);
+  Test.addEdge(1,3,1);
+  Test.addEdge(4,3,1);
+  
+  
 
-  Test.DFS(0);
+  Test.BFS(0);
+
+  // Test.displayEdges();
 
   return true;
 }

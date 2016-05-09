@@ -10,6 +10,7 @@ using namespace std;
 
 #include "Lista.hh"
 #include "Stos.hh"
+#include "Kolejka.hh"
 #include "Graph.hh"
 
 Graph::Graph()
@@ -81,7 +82,7 @@ void Graph::removeVertex(int x)
     }
 }
 
-void Graph::removeEdge(int x,int y)
+void Graph::displayEdges()
 {
   for(int i=0;i<V;i++)
     {  
@@ -109,28 +110,48 @@ void Graph::DFS(int start)
     {
       start = stoi(stack.pop()); //sciagam ze stosu element
       cerr << start << " ";
-
-
-      Lista tmp= AdList[start];
-      while(!tmp.empty()) //przeszukuje wszystkich sasiadow starta
-      {     
-	string sasiad=tmp.pop_front(); //sciagam sasiada
-	if (odwiedzone[stoi(sasiad)]!=1) //sprawdzam czy odwiedzony
-	  {
-	    odwiedzone[stoi(sasiad)] = 1; //jezeli nie, koloruje
-	    stack.push(sasiad); //i pushuje na stos
-	  }
-      }
+      
+      while(!AdList[start].empty()) //przeszukuje wszystkich sasiadow starta
+	{     
+	  string sasiad=AdList[start].pop_front(); //sciagam sasiada
+	  if (odwiedzone[stoi(sasiad)]!=1) //sprawdzam czy odwiedzony
+	    {
+	      odwiedzone[stoi(sasiad)] = 1; //jezeli nie, koloruje
+	      stack.push(sasiad); //i pushuje na stos
+	    }
+	}
     }
   cerr << endl;
   delete odwiedzone;
 }
 
-void Graph::BFS()
+void Graph::BFS(int start)
 {
+  int *odwiedzone= new int[V];
+  for(int i=0;i<V;i++)
+    odwiedzone[i]=0;
 
+  Kolejka queue;
+  queue.push(to_string(start)); //pushuje do stosu poczatkowy wezel
+  odwiedzone[start]=1; //koloruje go
 
-
+  while(!queue.empty())
+    {
+      start = stoi(queue.pop()); //sciagam z kolejki element
+      cerr << start << ", ";
+      
+      while(!AdList[start].empty()) //przeszukuje wszystkich sasiadow starta
+	{     
+	  string sasiad=AdList[start].pop_back(); //sciagam sasiada
+	  if (odwiedzone[stoi(sasiad)]!=1) //sprawdzam czy odwiedzony
+	    {
+	      odwiedzone[stoi(sasiad)] = 1; //jezeli nie, koloruje
+	      queue.push(sasiad); //i pushuje do kolejki
+	    }
+	}
+    }
+  cerr << endl;
+  delete odwiedzone;
 }
 
 
