@@ -13,6 +13,20 @@ using namespace std;
 #include "Kolejka.hh"
 #include "Graph.hh"
 
+/*!
+ *\file
+ *\brief Definicje funkcji oraz metod klasy Graph.
+ * Plik ten zawiera definicje funkcji oraz metod
+ * dla obiektow klasy Graph. Sa one umieszczone tutaj
+ * a nie w pliku naglowkowym aby zwiekszyc przejrzystosc 
+ * kodu.
+ */
+
+/*!
+ *\brief Konstruktor bezparametryczny dla obiektow klasy Graph.
+ * Ustawia wskaznik AdList na NULL, oraz pola V i E na 0;
+ */
+
 Graph::Graph()
 {
   this->V=0;
@@ -20,6 +34,12 @@ Graph::Graph()
   this->AdList=NULL;
 }
 
+/*!
+ *\brief Konstruktor parametryczny dla obiektow klasy Graph
+ * Tworzy tablice dynamiczna list i inicjuje odpowiednio pola E i V.
+ * \param[in] edges - ilosc krawedzi.
+ * \param[in] vertices - ilosc wierzcholkow.
+ */
 Graph::Graph(int edges,int vertices) //pamietac o odpowiedniej liczbie krawedzi (Ee<V;V*(V-1)>)
 {
   this->V=vertices;
@@ -29,6 +49,11 @@ Graph::Graph(int edges,int vertices) //pamietac o odpowiedniej liczbie krawedzi 
   cerr << "E=" << E <<endl;
 }
 
+/*!
+ *\brief Metoda addVertex dla obiektow klasy Graph
+ * Powieksza ona tablice dynamiczna list, zwieksza V 
+ * \param[in] x - indeks dodawanego elementu.
+ */
 void Graph::addVertex(int x)
 {
   if(this->V==0) //jezeli graf nie ma wierzcholkow
@@ -47,6 +72,12 @@ void Graph::addVertex(int x)
     }
 }
 
+
+/*!
+ *\brief Metoda isEmpty dla obiektow klasy Graph
+ *  Metoda ta sprawdza, czy lista pod zadanym indeksem jest pusta.
+ * \param[in] ind - indeks zadanej listy
+ */
 bool Graph::isEmpty(int ind)
 {
   if(!AdList[ind].empty())
@@ -109,7 +140,7 @@ void Graph::DFS(int start)
   while(!stack.empty())
     {
       start = stoi(stack.pop()); //sciagam ze stosu element
-      cerr << start << " ";
+      // cerr << start << " ";
       
       while(!AdList[start].empty()) //przeszukuje wszystkich sasiadow starta
 	{     
@@ -121,7 +152,7 @@ void Graph::DFS(int start)
 	    }
 	}
     }
-  cerr << endl;
+  // cerr << endl;
   delete odwiedzone;
 }
 
@@ -138,7 +169,7 @@ void Graph::BFS(int start)
   while(!queue.empty())
     {
       start = stoi(queue.pop()); //sciagam z kolejki element
-      cerr << start << ", ";
+      // cerr << start << ", ";
       
       while(!AdList[start].empty()) //przeszukuje wszystkich sasiadow starta
 	{     
@@ -150,7 +181,7 @@ void Graph::BFS(int start)
 	    }
 	}
     }
-  cerr << endl;
+  //cerr << endl;
   delete odwiedzone;
 }
 

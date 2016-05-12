@@ -15,15 +15,15 @@ using namespace std;
 
 /*!
  *\file
- *\brief Definicje funkcji oraz metod klasy test_lista.
+ *\brief Definicje funkcji oraz metod klasy test_graf.
  * Plik ten zawierqa definicje funkcji oraz metod
- * dla obiektow klasy test_lista. Sa one umieszczone tutaj
+ * dla obiektow klasy test_graf. Sa one umieszczone tutaj
  * a nie w pliku naglowkowym aby zwiekszyc przejrzystosc 
  * kodu.
  */
 
 /*!
- *\brief Konstruktor bezparametryczny dla obiektow klasy test_lista.
+ *\brief Konstruktor bezparametryczny dla obiektow klasy test_graf.
  * Ustawia wszystkie pola klasy na 0;
  */
 test_graph::test_graph()
@@ -36,7 +36,7 @@ test_graph::test_graph()
  *\brief Metoda start.
  * Jest to jedna z metod, ktora implementuje metode czysto wirtualna
  * interfejsu Istoper. Uruchamia zegar i zapisuje wynik do 
- * pola listy sta.
+ * pola t1.
  */
 void test_graph:: start()
 {
@@ -48,7 +48,7 @@ void test_graph:: start()
  *\brief Metoda stop.
  * Jest to jedna z metod, ktora implementuje metode czysto wirtualna
  * interfejsu Istoper. Uruchamia zegar i zapisuje wynik do 
- * pola listy end.
+ * pola t2.
  */
 void test_graph:: stop()
 {
@@ -69,23 +69,31 @@ long test_graph:: get_time()
 }
 
 /*!
- *\brief Metoda wyswietl_wynik dla obiektow klasy test_lista.
+ *\brief Metoda wyswietl_wynik dla obiektow klasy test_graf.
  * Metoda ta wyswietla pole get_time na standardowym wyjsciu.
  */
 void test_graph::wyswietl_wynik()
 {
-  cout << get_time() << endl;
+  cout << get_time() << "[ms];" << endl;
 }
 
+/*!
+ *\brief Metoda prepare dla obiektow klasy test_graf.
+ * Metoda implementuje metodę czysto wirtualną iterefejsu Irunnable.
+ * Na wejście dostaje ona ilość wierzchołków grafu oraz ilość wierzchołków
+ * , które ma dolosować. Na początku twrzy "szkielet" grafu, który gwarantuje
+ * jego spójność, a następnie dolosowuje zadaną ilość losowych połączeń.
+ * \param[in] - Ver - ilość wierzchołków grafu.
+ * \param[in] - Edg - ilość krawędzi, które należy dolosować do szkieletu.
+ * \return -Zwraca true, gdy operacja zakonczona powodzeniem, w przeciwny wypadku false.
+ */
 bool test_graph:: prepare(int Ver, int Edg)
 {
-  
   random_device rd;
   mt19937 rng(rd());
   uniform_int_distribution<int> uni(0,Ver-1);
 
   this->Test=Graph(Edg,Ver);
-  /*
   //1.Tworzenie szkieletu (gwarantuje graf spojny)
 
   for(int i=0; i< Ver-1;i++)
@@ -108,8 +116,6 @@ bool test_graph:: prepare(int Ver, int Edg)
 	  Test.addEdge(b,a,1);
 	}
     }
-  */
-
   /*
   //Graf testowy
   Test.addEdge(3,0,1);
@@ -131,7 +137,8 @@ bool test_graph:: prepare(int Ver, int Edg)
   Test.addEdge(7,2,1);
   Test.addEdge(2,7,1);
   */
-  
+
+  /*
   Test.addEdge(0,2,1);
   Test.addEdge(0,1,1);
   Test.addEdge(2,5,1);
@@ -141,11 +148,7 @@ bool test_graph:: prepare(int Ver, int Edg)
   Test.addEdge(1,3,1);
   Test.addEdge(4,3,1);
   
-  
-
-  Test.BFS(0);
-
-  // Test.displayEdges();
+  */
 
   return true;
 }
@@ -164,17 +167,24 @@ bool test_graph:: prepare(int Ver, int Edg)
  */
 bool test_graph:: run()
 {
+  /*
   start();
   stop();
   get_time();
   cerr<< "Czas zapisu: ";
   wyswietl_wynik();
-  
-  //Pomiar czasu wyszukiwania
+  */
+
+  //Pomiar czasu trwania BFS/DFS
   start();
+  Test.BFS(0);
   stop();
   get_time();
+
+  Test.DFS(0);
+  cout << "Czas trwania algorytmu: ";
   wyswietl_wynik();
   return true;
+
 }
 
